@@ -1,0 +1,99 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 GLOBAL           main
+    2 00000000                 AREA             mycode, CODE, READONLY
+    3 00000000         
+    4 00000000 20000002 
+                       pInt    EQU              0x20000002  ; int *pInt = (int 
+                                                            *) 0x2000002  
+    5 00000000         
+    6 00000000                 ENTRY
+    7 00000000         
+    8 00000000 4803    main    LDR              R0, =pInt   ; load pInt into R0
+                                                            
+    9 00000002 4904            LDR              R1, =0xBEEFFEED ; load 0xBEEFFE
+                                                            ED into R1
+   10 00000004 6001            STR              R1, [R0]    ; store value in R1
+                                                             into memory addres
+                                                            s in R0, *pInt = 0x
+                                                            BEEFFEED
+   11 00000006 4A04            LDR              R2, =0xABBCABBC ; load 0xABBCAB
+                                                            BC into R2
+   12 00000008 6042            STR              R2, [R0,#4] ; store value in R2
+                                                             into memory addres
+                                                            s in R0 increased b
+                                                            y 4, *(pInt +1) = 0
+                                                            xABBCABBC
+   13 0000000A 4B04            LDR              R3, =0xCAADBAAD ; load 0xCAADBA
+                                                            AD into R3
+   14 0000000C 6103            STR              R3, [R0,#16] ; store value in R
+                                                            3 into memory addre
+                                                            ss in R0 increased 
+                                                            by 16, *(pInt +4) =
+                                                             0xCAADBAAD
+   15 0000000E         
+   16 0000000E E7FE    stop    B                stop
+   17 00000010         
+   18 00000010                 END
+              20000002 
+              BEEFFEED 
+              ABBCABBC 
+              CAADBAAD 
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4 --apcs=interw
+ork --depend=.\objects\assignment02-1.d -o.\objects\assignment02-1.o -I.\RTE\_T
+arget_1 -IC:\Users\Administrator\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\CMSIS\
+Core\Include -IC:\Users\Administrator\AppData\Local\Arm\Packs\ARM\CMSIS\5.5.1\D
+evice\ARM\ARMCM4\Include --predefine="__EVAL SETA 1" --predefine="__UVISION_VER
+SION SETA 528" --predefine="_RTE_ SETA 1" --predefine="ARMCM4 SETA 1" --list=.\
+listings\assignment02-1.lst Assignment02-1.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+main 00000000
+
+Symbol: main
+   Definitions
+      At line 8 in file Assignment02-1.s
+   Uses
+      At line 1 in file Assignment02-1.s
+Comment: main used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 2 in file Assignment02-1.s
+   Uses
+      None
+Comment: mycode unused
+stop 0000000E
+
+Symbol: stop
+   Definitions
+      At line 16 in file Assignment02-1.s
+   Uses
+      At line 16 in file Assignment02-1.s
+Comment: stop used once
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+pInt 20000002
+
+Symbol: pInt
+   Definitions
+      At line 4 in file Assignment02-1.s
+   Uses
+      At line 8 in file Assignment02-1.s
+Comment: pInt used once
+1 symbol
+340 symbols in table
