@@ -1,0 +1,100 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 GLOBAL           main
+    2 00000000                 AREA             mycode, CODE, READONLY
+    3 00000000         
+    4 00000000 00000035 
+                       varX    EQU              0x35        ; define constant w
+                                                            ith the value of 0x
+                                                            35
+    5 00000000 00000035        DCD              varX        ; store varX into m
+                                                            emory
+    6 00000004         
+    7 00000004                 ENTRY
+    8 00000004 F000 F802 
+                       main    BL               myFunc      ; branch to myFunc
+    9 00000008 F240 3333       MOV              R3, #0x333  ; put 0x333 into R3
+                                                                
+   10 0000000C         
+   11 0000000C F04F 0035 
+                       myFunc  LDR              R0, =varX   ; uses R0 to point 
+                                                            to the address of v
+                                                            arX variable
+   12 00000010 EA4F 0090       MOV              R0, R0, LSR #2 ; right shift 2 
+                                                            bits R0
+   13 00000014 F04F 0115       MOV              R1, #0x15   ; put #0x15 into R1
+                                                            
+   14 00000018 EB00 0201       ADD              R2, R0, R1  ; add R1 to R0, the
+                                                            n put the result to
+                                                             R2
+   15 0000001C 4770            BX               R14
+   16 0000001E         
+   17 0000001E E7FE    Stayhere
+                               B                Stayhere
+   18 00000020                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4 --apcs=interw
+ork --depend=.\objects\assignment01-2.d -o.\objects\assignment01-2.o -I.\RTE\_T
+arget_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include -IC:\Keil_v5\A
+RM\PACK\ARM\CMSIS\5.4.0\Device\ARM\ARMCM4\Include --predefine="__UVISION_VERSIO
+N SETA 526" --predefine="_RTE_ SETA 1" --predefine="ARMCM4 SETA 1" --list=.\lis
+tings\assignment01-2.lst assignment01-2.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Stayhere 0000001E
+
+Symbol: Stayhere
+   Definitions
+      At line 17 in file assignment01-2.s
+   Uses
+      At line 17 in file assignment01-2.s
+Comment: Stayhere used once
+main 00000004
+
+Symbol: main
+   Definitions
+      At line 8 in file assignment01-2.s
+   Uses
+      At line 1 in file assignment01-2.s
+Comment: main used once
+myFunc 0000000C
+
+Symbol: myFunc
+   Definitions
+      At line 11 in file assignment01-2.s
+   Uses
+      At line 8 in file assignment01-2.s
+Comment: myFunc used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 2 in file assignment01-2.s
+   Uses
+      None
+Comment: mycode unused
+4 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+varX 00000035
+
+Symbol: varX
+   Definitions
+      At line 4 in file assignment01-2.s
+   Uses
+      At line 5 in file assignment01-2.s
+      At line 11 in file assignment01-2.s
+
+1 symbol
+338 symbols in table

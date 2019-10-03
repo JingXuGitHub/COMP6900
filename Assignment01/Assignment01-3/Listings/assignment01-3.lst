@@ -1,0 +1,88 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000                 GLOBAL           main
+    2 00000000                 AREA             mycode, CODE, READONLY
+    3 00000000         
+    4 00000000 00000011 
+                       N       EQU              0x11        ; define variable N
+                                                            
+    5 00000000         
+    6 00000000                 ENTRY
+    7 00000000 F04F 0011 
+                       main    MOV              R0, #N      ; move N into R0
+    8 00000004 F04F 01C8       MOV              R1, #200    ; move literal 200 
+                                                            into R1
+    9 00000008 FB01 F100       MUL              R1, R1, R0  ; multiple R1 and R
+                                                            0, put the result i
+                                                            nto R1
+   10 0000000C F04F 021E       MOV              R2, #30     ; move literal 30 i
+                                                            nto R2
+   11 00000010 440A            ADD              R2, R2, R1  ; add R1 to R2, the
+                                                            n put the result in
+                                                            to R2 
+   12 00000012 F04F 030A       MOV              R3, #10     ; move literal 10 i
+                                                            nto R3
+   13 00000016 FBB2 F3F3       UDIV             R3, R2, R3  ; divide R2 by R3, 
+                                                            put the result into
+                                                             R3
+   14 0000001A         
+   15 0000001A E7FE    Stayhere
+                               B                Stayhere
+   16 0000001C                 END
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4 --apcs=interw
+ork --depend=.\objects\assignment01-3.d -o.\objects\assignment01-3.o -I.\RTE\_T
+arget_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include -IC:\Keil_v5\A
+RM\PACK\ARM\CMSIS\5.4.0\Device\ARM\ARMCM4\Include --predefine="__UVISION_VERSIO
+N SETA 526" --predefine="_RTE_ SETA 1" --predefine="ARMCM4 SETA 1" --list=.\lis
+tings\assignment01-3.lst Assignment01-3.s
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Relocatable symbols
+
+Stayhere 0000001A
+
+Symbol: Stayhere
+   Definitions
+      At line 15 in file Assignment01-3.s
+   Uses
+      At line 15 in file Assignment01-3.s
+Comment: Stayhere used once
+main 00000000
+
+Symbol: main
+   Definitions
+      At line 7 in file Assignment01-3.s
+   Uses
+      At line 1 in file Assignment01-3.s
+Comment: main used once
+mycode 00000000
+
+Symbol: mycode
+   Definitions
+      At line 2 in file Assignment01-3.s
+   Uses
+      None
+Comment: mycode unused
+3 symbols
+
+
+
+ARM Macro Assembler    Page 1 Alphabetic symbol ordering
+Absolute symbols
+
+N 00000011
+
+Symbol: N
+   Definitions
+      At line 4 in file Assignment01-3.s
+   Uses
+      At line 7 in file Assignment01-3.s
+Comment: N used once
+1 symbol
+337 symbols in table
