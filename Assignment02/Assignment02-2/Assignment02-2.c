@@ -9,7 +9,7 @@ void intia_port_C();
 void blinkLED_n(int n);
 
 int main(){
-	int blink_times = 3;
+	int blink_times = 4;
 	intia_port_F();
 	//blinkLED(2000000);
 	blinkLED_n(blink_times);
@@ -38,61 +38,64 @@ void intia_port_C(){
 	// System clock enable for Port C
 	SYSCTL_RCGCGPIO_R |= 0x04;
 	
-	//Pin directions for Port C, set pin 4,5,6,7 to be output
-	GPIO_PORTC_DIR_R |= 0xF0;
+	// Unlock pin 0,1,2,3 of port C
+	GPIO_PORTC_LOCK_R = 0x4C4F434B;
+	GPIO_PORTC_CR_R |= 0xFF;
 	
-	//Enable digital mode operation GPIO_DEN, enable pin 4,5,6,7 digital mode operation
-	GPIO_PORTC_DEN_R |= 0xF0;
+	//Pin directions for Port C, set pin 1,2,3,4,5,6,7 to be output
+	GPIO_PORTC_DIR_R |= 0xFF;
+	
+	//Enable digital mode operation GPIO_DEN, enable pin 1,2,3,4,5,6,7 digital mode operation
+	GPIO_PORTC_DEN_R |= 0xFF;
 }
 
 void blinkLED(int tm){
-	//time_t start;
-	
+
 	while(1)
-	{		
-		//start = time(NULL);
+	{
 		// Data register
 		//red light on - pin 1 activate
 		GPIO_PORTF_DATA_R = 0x02;
-		//while (time(NULL) < start + tm);
 		delay(tm);
 		
-		//start = time(NULL);
 		//blue light on - pin 2 activate
 		GPIO_PORTF_DATA_R <<= 1;
-		//while (time(NULL) < start + tm);
 		delay(tm);
 	
-		//start = time(NULL);
 		//green light on - pin 3 activate
 		GPIO_PORTF_DATA_R <<= 1;
-		//while (time(NULL) < start + tm);
 		delay(tm);
 
 	}
 }
 
 void blinkLED_n(int n){
-	// blink green light n times
-	for(int i=0; i<n; i++){
-		GPIO_PORTF_DATA_R =0x08;
-		delay(2000000);
-		GPIO_PORTF_DATA_R =0x00;
-		delay(2000000);
-	}
-	// blink blue light n times
-	for(int i=0; i<n; i++){
-		GPIO_PORTF_DATA_R =0x04;
-		delay(2000000);
-		GPIO_PORTF_DATA_R =0x00;
-		delay(2000000);
-	}
-	// blink red light n times
-	for(int i=0; i<n; i++){
-		GPIO_PORTF_DATA_R =0x02;
-		delay(2000000);
-		GPIO_PORTF_DATA_R =0x00;
-		delay(2000000);
+	int c=0;
+	while(1){
+		if(c<n){
+			GPIO_PORTF_DATA_R = 0x08;
+			delay(3000000);
+			GPIO_PORTF_DATA_R = 0x00;
+			delay(3000000);
+			c++;
+		}
+		else if(c<2*n){
+			GPIO_PORTF_DATA_R = 0x04;
+			delay(3000000);
+			GPIO_PORTF_DATA_R = 0x00;
+			delay(3000000);
+			c++;
+		}
+		else if(c<3*n){
+			GPIO_PORTF_DATA_R = 0x02;
+			delay(3000000);
+			GPIO_PORTF_DATA_R = 0x00;
+			delay(3000000);
+			c++;
+		}
+		else{
+			c=0;
+		}
 	}
 }
 

@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\Objects\Assignment02-2.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Assignment02-2.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Sep 29 10:32:41 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Oct 07 16:35:49 2019
 <BR><P>
-<H3>Maximum Stack Usage =         16 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =          8 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-__rt_entry_main &rArr; main &rArr; blinkLED_n
+__rt_entry_main &rArr; exit
 <P>
 <H3>
 Mutually Recursive functions
@@ -167,8 +167,8 @@ Global Symbols
 <P><STRONG><a name="[4d]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[21]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
-<LI>Call Chain = __rt_entry_main &rArr; main &rArr; blinkLED_n
+<BR><BR>[Stack]<UL><LI>Max Depth = 8 + Unknown Stack Size
+<LI>Call Chain = __rt_entry_main &rArr; exit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
 <LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -353,10 +353,8 @@ Global Symbols
 <P><STRONG><a name="[17]"></a>SystemInit</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, system_armcm4.o(i.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_armcm4.o(.text)
 </UL>
-<P><STRONG><a name="[29]"></a>blinkLED_n</STRONG> (Thumb, 114 bytes, Stack size 8 bytes, assignment02-2.o(i.blinkLED_n))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = blinkLED_n
-</UL>
-<BR>[Calls]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
+<P><STRONG><a name="[29]"></a>blinkLED_n</STRONG> (Thumb, 118 bytes, Stack size 0 bytes, assignment02-2.o(i.blinkLED_n))
+<BR><BR>[Calls]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay
 </UL>
 <BR>[Called By]<UL><LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -369,10 +367,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[22]"></a>main</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, assignment02-2.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = main &rArr; blinkLED_n
-</UL>
-<BR>[Calls]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;intia_port_F
+<P><STRONG><a name="[22]"></a>main</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, assignment02-2.o(i.main))
+<BR><BR>[Calls]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;intia_port_F
 <LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;blinkLED_n
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
