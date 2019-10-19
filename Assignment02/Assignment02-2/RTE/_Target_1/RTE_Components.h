@@ -1,6 +1,6 @@
 
 /*
- * Auto generated Run-Time-Environment Configuration File
+ * Auto generated Run-Time-Environment Component Configuration File
  *      *** Do not modify ! ***
  *
  * Project: 'Assignment02-2' 
@@ -15,7 +15,6 @@
  * Define the Device Header File: 
  */
 #define CMSIS_device_header "ARMCM4.h"
-
 
 
 #endif /* RTE_COMPONENTS_H */
