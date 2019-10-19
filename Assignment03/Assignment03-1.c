@@ -8,13 +8,16 @@ void SwitchInput(void);
 void normalMode(void);
 void emergencyMode(void);
 void selectMode(void);
-void normalModeInit(void);
+void closeSystem(void);
 
 int state_big = 0;
 int state_small = 0;
-int greenTime = 15000000;
-int yellowTime = 10000000;
-int timeAfterYellow = 5000000;
+int greenTime = 5000000;
+int yellowTime = 2000000;
+int timeAfterYellow = 1000000;
+int blinkTime = 500000;
+int c = 0;
+int t = 0;
 
 uint32_t swBig = 0x00;
 uint32_t swBig_old = 0x00;
@@ -23,7 +26,6 @@ uint32_t swSmall_old = 0x00;
 
 int main(){
 	PortAF_Init();
-	normalModeInit();
 	while(1){
 		SwitchInput();
 		selectMode();
@@ -40,6 +42,10 @@ void selectMode(void){
 		else{
 			emergencyMode();
 		}
+	}
+	else{
+		closeSystem();
+		state_small = 0;
 	}
 }
 
@@ -78,34 +84,69 @@ void SwitchInput(void){
 	}
 }
 
-void normalModeInit(void){
-	GPIO_PORTA_DATA_R = 0x04;  // north-bound RED LED ON
-	GPIO_PORTF_DATA_R = 0x08;  // east-bound GREEN LED ON
-	delay(greenTime);	
+void normalMode(void){
+	if(c<1){
+		GPIO_PORTA_DATA_R = 0x04;    // north-bound RED LED ON
+		GPIO_PORTF_DATA_R = 0x04;    // east-bound YELLOW LED ON, north-bound RED LED no change
+		delay(yellowTime);
+		c++;
+	}
+	else if(c<2){
+		GPIO_PORTA_DATA_R = 0x04;  // north-bound RED LED ON
+		GPIO_PORTF_DATA_R = 0x02;    // east-bound RED LED ON, wait for some time
+		delay(timeAfterYellow);
+		c++;
+	}
+	else if(c<3){
+		GPIO_PORTA_DATA_R = 0x10;    // north-bound GREEN LED ON
+		GPIO_PORTF_DATA_R = 0x02;    // east-bound RED LED ON
+		delay(greenTime);
+		c++;
+	}
+	else if(c<4){
+		GPIO_PORTA_DATA_R = 0x08;    // north-bound YELLOW LED ON
+		GPIO_PORTF_DATA_R = 0x02;    // east-bound RED LED ON
+		delay(yellowTime);
+		c++;
+	}
+	else if(c<5){
+		GPIO_PORTA_DATA_R = 0x04;    // north-bound RED LED ON, wait for some time
+		GPIO_PORTF_DATA_R = 0x02;    // east-bound RED LED ON
+		delay(timeAfterYellow);
+		c++;
+	}
+	else if(c<6){
+		GPIO_PORTA_DATA_R = 0x04;    // north-bound RED LED ON
+		GPIO_PORTF_DATA_R = 0x08;    // east-bound GREEN LED ON
+		delay(greenTime);
+		c++;
+	}
+	else{
+		c=0;
+	}
 }
 
-void normalMode(void){
-	GPIO_PORTF_DATA_R = 0x04;    // east-bound YELLOW LED ON, north-bound RED LED no change
-	delay(yellowTime);
-	GPIO_PORTF_DATA_R = 0x02;    // east-bound RED LED ON, wait for some time
-	delay(timeAfterYellow);
-	GPIO_PORTA_DATA_R = 0x10;    // north-bound GREEN LED ON
-	delay(greenTime);
-	GPIO_PORTA_DATA_R = 0x08;    // north-bound YELLOW LED ON
-	delay(yellowTime);
-	GPIO_PORTA_DATA_R = 0x04;    // north-bound RED LED ON, wait for some time
-	delay(timeAfterYellow);
-	GPIO_PORTF_DATA_R = 0x08;    // east-bound GREEN LED ON
-	delay(greenTime);
+void closeSystem(void){
+	GPIO_PORTA_DATA_R &= ~0x1C;  // shutdown north-bound LEDs
+	GPIO_PORTF_DATA_R &= ~0x0E;  // shutdown east-bound LEDs	
 }
 
 void emergencyMode(void){	
-	GPIO_PORTA_DATA_R = 0x08;  // north-bound yellow LED ON
-	GPIO_PORTF_DATA_R = 0x02;  // east-bound red LED ON		
-	delay(500000);
-	GPIO_PORTA_DATA_R = 0x00;  // north-bound yellow LED OFF
-	GPIO_PORTF_DATA_R = 0x00;  // east-bound red LED OFF
-	delay(500000);
+	if (t<1){
+		GPIO_PORTA_DATA_R = 0x08;  // north-bound yellow LED ON
+		GPIO_PORTF_DATA_R = 0x02;  // east-bound red LED ON		
+		delay(blinkTime);
+		t++;
+	}
+	else if (t<2){
+		GPIO_PORTA_DATA_R = 0x00;  // north-bound yellow LED OFF
+		GPIO_PORTF_DATA_R = 0x00;  // east-bound red LED OFF
+		delay(blinkTime);
+		t++;
+	}
+	else{
+		t=0;
+	}
 }
 
 void delay (int tm){
