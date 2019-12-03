@@ -1,0 +1,9 @@
+--cpu=Cortex-M4 --fpu=SoftVFP
+".\objects\sodamachine_main.o"
+".\objects\matrixkeypad.o"
+".\objects\startup_armcm4.o"
+".\objects\system_armcm4.o"
+--strict --scatter ".\Objects\SodaMachine.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\SodaMachine.map" -o .\Objects\SodaMachine.axf
